@@ -11,6 +11,8 @@ const loadingDiv = document.getElementById('loading');
 searchBtn.addEventListener('click', () => {
     const city = cityInput.value.trim();
     if (city) {
+        // 在搜尋過程中加上模糊效果
+        document.body.classList.add('blurred');
         getWeather(city);
         getForecast(city);
     }
@@ -59,7 +61,13 @@ function displayCurrentWeather(data) {
     const backgroundImage = getWeatherBackground(description);
 
     // 設置 currentWeatherDiv 的背景圖片
-    currentWeatherDiv.style.backgroundImage = backgroundImage;
+    // currentWeatherDiv.style.backgroundImage = backgroundImage;
+
+    // 獲取容器元素
+    const container = document.querySelector('.container');
+
+    // 設置背景圖片
+    container.style.backgroundImage = backgroundImage;
 
     // 設置內容
     currentWeatherDiv.innerHTML = `
@@ -91,6 +99,61 @@ async function getForecast(city) {
     hideLoading();
 }
 
+
+
+
+// 顯示五天天氣預報
+function displayForecast(data) {
+    forecastDiv.innerHTML = ''; // 清空之前的內容
+    const forecastList = data.list.filter((_, index) => index % 8 === 0); // 每隔 8 個時段（24 小時）獲取一次預測
+
+    forecastList.forEach((item) => {
+        
+
+        const dateObj = new Date(item.dt * 1000);
+    
+        const weekday = dateObj.toLocaleDateString('en-US', { weekday: 'short' });
+        const day = dateObj.toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
+        
+        const date = `${weekday} ${day}`; // 將星期放在日期前面
+
+
+        const tempMax = Math.round(item.main.temp_max); // 四捨五入最高溫
+        const tempMin = Math.round(item.main.temp_min); // 四捨五入最低溫
+        const description = item.weather[0].description;
+        const iconCode = item.weather[0].icon;
+        const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`; // 圖示 URL
+
+        // console.log(description); // 檢查 description 的內容
+
+        // 取得背景圖片
+        // const backgroundImage = getWeatherBackground(description);
+        
+        // 創建 forecastDay 元素
+        const forecastDay = document.createElement('div');
+        forecastDay.classList.add('forecast-day');
+        
+        // 設置背景圖片和透明度
+        // forecastDay.style.backgroundImage = backgroundImage;
+        
+        
+
+        // 添加內容到 forecastDay
+        forecastDay.innerHTML = `
+            <h3>${weekday}</h3>
+            <img src="${iconUrl}" alt="${description}" class="weather-icon">
+            <p>${description}</p>
+            <span id=tempMax> ${tempMax} °</span> / 
+            <span id=tempMin> ${tempMin} °</span>
+            <p>${day}</p>
+        `;
+        forecastDiv.appendChild(forecastDay);
+        forecastDay.style.display = 'block'; // 顯示 forecastDay
+    });
+    
+}
+
+
 // 根據天氣狀況設定背景圖片
 function getWeatherBackground(description) {
     switch (description.toLowerCase()) {
@@ -105,7 +168,7 @@ function getWeatherBackground(description) {
         case 'moderate rain':
             return 'url("img/moderate_rain.jpg")'; // 中雨背景圖片     
         case 'scattered clouds':
-            return 'url("img/scattered_clouds.jpg")'; // 雲量散布背景圖片
+            return 'url("img/scattered_clouds.jpg")'; // 散雲背景圖片
         case 'broken clouds':
             return 'url("img/broken_clouds.jpg")'; // 阻塞雲背景圖片
         case 'shower rain':
@@ -122,49 +185,5 @@ function getWeatherBackground(description) {
             return 'url("default-weather.jpg")'; // 預設背景圖片
     }
 }
-
-
-
-
-// 顯示五天天氣預報
-function displayForecast(data) {
-    forecastDiv.innerHTML = ''; // 清空之前的內容
-    const forecastList = data.list.filter((_, index) => index % 8 === 0); // 每隔 8 個時段（24 小時）獲取一次預測
-
-    forecastList.forEach((item) => {
-        const date = new Date(item.dt * 1000).toLocaleDateString();
-        const tempMax = Math.round(item.main.temp_max); // 四捨五入最高溫
-        const tempMin = Math.round(item.main.temp_min); // 四捨五入最低溫
-        const description = item.weather[0].description;
-        const iconCode = item.weather[0].icon;
-        const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`; // 圖示 URL
-
-        console.log(description); // 檢查 description 的內容
-
-        // 取得背景圖片
-        const backgroundImage = getWeatherBackground(description);
-        
-        // 創建 forecastDay 元素
-        const forecastDay = document.createElement('div');
-        forecastDay.classList.add('forecast-day');
-        
-        // 設置背景圖片和透明度
-        forecastDay.style.backgroundImage = backgroundImage;
-        
-        
-
-        // 添加內容到 forecastDay
-        forecastDay.innerHTML = `
-            <h3>${date}</h3>
-            <img src="${iconUrl}" alt="${description}" class="weather-icon">
-            <p id=description>${description}</p>
-            <p>${tempMax} ° / ${tempMin} °</p>
-        `;
-        forecastDiv.appendChild(forecastDay);
-        forecastDay.style.display = 'block'; // 顯示 forecastDay
-    });
-    
-}
-
 
 
