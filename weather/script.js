@@ -6,7 +6,7 @@ const searchBtn = document.getElementById('searchBtn');
 const currentWeatherDiv = document.getElementsByClassName('today')[0];
 const forecastDiv = document.getElementById('forecastContainer');
 const loadingDiv = document.getElementById('loading');
-
+const searchTitle = document.getElementById('searchTitle');
 const forecastContainer = document.querySelector('.forecast-container');
 
 
@@ -19,7 +19,9 @@ searchBtn.addEventListener('click', () => {
         document.body.classList.add('blurred');
         getWeather(city);
         getForecast(city);
-
+        // 將標題更新為用戶輸入的城市名稱
+        searchTitle.textContent = city;
+        searchTitle.style.color = 'white'
          // 顯示 forecast-container
         forecastContainer.style.display = 'flex'; // 顯示並設定為 Flex 排版
     }
@@ -42,7 +44,9 @@ const search = () => {
         document.body.classList.add('blurred');
         getWeather(city);
         getForecast(city);
-
+        // 將標題更新為用戶輸入的城市名稱
+        searchTitle.textContent = city;
+        searchTitle.style.color = 'white'
          // 顯示 forecast-containerS
         forecastContainer.style.display = 'flex'; // 顯示並設定為 Flex 排版
     } else {
@@ -105,7 +109,6 @@ function displayCurrentWeather(data) {
 
     // 設置內容
     currentWeatherDiv.innerHTML = `
-        <h3>${name}</h3>
         <p class="temperature">${temp} °</p>
         <img src="${iconUrl}" alt="${description}" class="weather-icon">
         <p class="condition">${description}</p>
