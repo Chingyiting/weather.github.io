@@ -7,6 +7,10 @@ const currentWeatherDiv = document.getElementsByClassName('today')[0];
 const forecastDiv = document.getElementById('forecastContainer');
 const loadingDiv = document.getElementById('loading');
 
+const forecastContainer = document.querySelector('.forecast-container');
+
+
+// 這段要再精簡優化!!!!!!
 // 點擊查詢按鈕後觸發事件
 searchBtn.addEventListener('click', () => {
     const city = cityInput.value.trim();
@@ -15,8 +19,38 @@ searchBtn.addEventListener('click', () => {
         document.body.classList.add('blurred');
         getWeather(city);
         getForecast(city);
+
+         // 顯示 forecast-container
+        forecastContainer.style.display = 'flex'; // 顯示並設定為 Flex 排版
     }
 });
+
+// 當按下 Enter 鍵時觸發搜尋
+const handleEnterKeyPress = (event) => {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // 防止換行
+        search(); // 調用搜尋函數
+    }
+};
+cityInput.addEventListener('keydown', handleEnterKeyPress);
+
+// 搜尋函數
+const search = () => {
+    const city = cityInput.value.trim(); // 取得並去除前後空白的城市名稱
+    if (city) {
+        // 在搜尋過程中加上模糊效果
+        document.body.classList.add('blurred');
+        getWeather(city);
+        getForecast(city);
+
+         // 顯示 forecast-containerS
+        forecastContainer.style.display = 'flex'; // 顯示並設定為 Flex 排版
+    } else {
+        alert('Please enter a city name');
+    }
+};
+
+
 
 // 顯示和隱藏 loading 動畫
 function showLoading() {
@@ -132,6 +166,7 @@ function displayForecast(data) {
         // 創建 forecastDay 元素
         const forecastDay = document.createElement('div');
         forecastDay.classList.add('forecast-day');
+   
         
         // 設置背景圖片和透明度
         // forecastDay.style.backgroundImage = backgroundImage;
@@ -148,7 +183,9 @@ function displayForecast(data) {
             <p>${day}</p>
         `;
         forecastDiv.appendChild(forecastDay);
+
         forecastDay.style.display = 'block'; // 顯示 forecastDay
+       
     });
     
 }
@@ -158,29 +195,31 @@ function displayForecast(data) {
 function getWeatherBackground(description) {
     switch (description.toLowerCase()) {
         case 'clear sky':
-            return 'url("img/clear_sky.jpg")'; // 晴天背景圖片
+            return 'url("img/clear_sky.jpg")'; 
         case 'few clouds':
-            return 'url("img/few_clouds.jpg")'; // 少雲背景圖片
+            return 'url("img/few_clouds.jpg")'; 
         case 'overcast clouds':
-            return 'url("img/overcast_clouds.jpg")'; // 背景圖片  
+            return 'url("img/overcast_clouds.jpg")'; 
         case 'light rain':
-            return 'url("img/light_rain.jpg")'; // 太陽雨背景圖
+            return 'url("img/light_rain.jpg")'; 
         case 'moderate rain':
-            return 'url("img/moderate_rain.jpg")'; // 中雨背景圖片     
+            return 'url("img/moderate_rain.jpg")';  
         case 'scattered clouds':
-            return 'url("img/scattered_clouds.jpg")'; // 散雲背景圖片
+            return 'url("img/scattered_clouds.jpg")'; 
         case 'broken clouds':
-            return 'url("img/broken_clouds.jpg")'; // 阻塞雲背景圖片
+            return 'url("img/broken_clouds.jpg")'; 
         case 'shower rain':
-            return 'url("img/shower_rain.jpg")'; // 陣雨背景圖片
+            return 'url("img/shower_rain.jpg")'; 
         case 'rain':
-            return 'url("img/rain.jpg")'; // 雨天背景圖片
+            return 'url("img/rain.jpg")'; 
         case 'thunderstorm':
-            return 'url("img/thunderstorm.jpg")'; // 雷陣雨背景圖片
+            return 'url("img/thunderstorm.jpg")'; 
         case 'snow':
-            return 'url("img/snow.jpg")'; // 雪天背景圖片
+            return 'url("img/snow.jpg")'; 
+        case 'light snow':
+            return 'url("img/snow.jpg")'; 
         case 'mist':
-            return 'url("img/mist.jpg")'; // 薄霧背景圖片
+            return 'url("img/mist.jpg")'; 
         default:
             return 'url("default-weather.jpg")'; // 預設背景圖片
     }
