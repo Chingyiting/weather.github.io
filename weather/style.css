@@ -14,7 +14,6 @@ body {
     align-items: center;
     min-height: 100vh;
     background-color: #ffffff;
-    /* background-image: url(img/sky.jpg); */
     background-size: cover; /* 讓背景圖片覆蓋容器 */
     background-position: center; /* 背景圖片居中 */
     margin: 0;
@@ -29,7 +28,7 @@ body.blurred::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url(img/sky.jpg); /* 再次設置背景圖片 */
+   
     background-size: cover;
     background-position: center;
     filter: blur(3px); /* 模糊效果 */
@@ -77,9 +76,6 @@ h1 {
     box-shadow:  0 0 5px #979797
    
 }
-#cityInput:active {
-    transform: translateY(-6px) scale(.98);
-  }
 
 #searchBtn {
     padding: 6px 10px;
@@ -146,75 +142,32 @@ h1 {
 }
 
 
-.forecast-container {
+#forecastContainer {
     display: none;
-    gap: 10px;
+    align-items: center; /* 使元素在垂直方向居中 */
+    border-radius: 10px;
+    gap: 0px;
     justify-content: center;
     margin-top: 20px; /* 調整此值來增加與上方容器的距離 */
+    background-color: rgba(0, 0, 0, 0.2); /*調整透明度*/
     opacity: 0;
     animation: fadeIn 1s ease-out forwards; /* 為整個容器加上淡入動畫 */
     animation-delay: 0.5s; /* 預設延遲0.5秒 */
+    margin: 0 auto;
 }
-
-
 
 /* 為每個預報的容器加上淡入動畫 */
 .forecast-day {
-    display: none;   /*預設隱藏 */
-    background-size: cover; /* 確保背景圖片覆蓋整個容器 */
-    background-position: center; /* 讓圖片居中 */
-    padding: 20px;
-    /* border-radius: 10px; 圓角 */
+    padding: 30px;
     font-size: 18px;
     color: #ffffff; /* 設置預設文字顏色為白色 */
     text-align: center;
-    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
     transition: background-color 0.3s ease;
     width: 120px;
     height: 200px;
     opacity: 0; /* 初始狀態為透明 */
     animation: fadeIn 1s ease-out forwards; /* 淡入效果 */
     position: relative; /* 使 ::before 偽元素能夠定位 */
-}
-
-/* 添加遮罩效果 */
-/*.forecast-day::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.2); /* 調整透明度 
-    border-radius: 10px; /* 與 .forecast-day 相同的圓角 
-    z-index: 1;
-}*/
-
-/* 保持文字顯示在遮罩之上 */
-.forecast-day * {
-    position: relative;
-    z-index: 2;
-}
-
-/* 每個 `.forecast-day` 的淡入延遲時間，這樣它們會依次淡入 */
-.forecast-day:nth-child(1) {
-    animation-delay: 0.25s;
-}
-
-.forecast-day:nth-child(2) {
-    animation-delay: 0.5s;
-}
-
-.forecast-day:nth-child(3) {
-    animation-delay: 0.75s;
-}
-
-.forecast-day:nth-child(4) {
-    animation-delay: 1s;
-}
-
-.forecast-day:nth-child(5) {
-    animation-delay: 1.25s;
 }
 
 /* 定義淡入動畫 */
@@ -226,6 +179,29 @@ h1 {
         opacity: 1; /* 結束時完全顯示 */
     }
 }
+
+/* 每個 `.forecast-day` 的淡入延遲時間，這樣它們會依次淡入 */
+.forecast-day:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.forecast-day:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.forecast-day:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.forecast-day:nth-child(4) {
+    animation-delay: 0.8s;
+}
+
+.forecast-day:nth-child(5) {
+    animation-delay: 1s;
+}
+
+
 
 .forecast-day:hover {
     transform: scale(1.1); /* 放大 1.1 倍 */
@@ -289,52 +265,32 @@ h1 {
 
 /* 預設桌面版 */
 @media (min-width: 1025px) {
-    /* .container {
-        width: 80%;
-    } */
-    .forecast-container {
-        /* display: flex; */
-        gap: 10px; /* 設置容器內部元素的間距 */
-        align-items: center; /* 使元素在垂直方向居中 */
-        background-color: rgba(0, 0, 0, 0.2); /*調整透明度*/
-        border-radius: 10px;
-        width: 800px;
+    #forecastContainer {
+        width: 70%;
         height: 270px;
-        margin: 0 auto;
     }
-    .forecast-day:not(:last-child){
-        border-right: 1px solid;
+    .line{
+        height: 90%;
+        border-right: 1px solid rgba(255, 255, 255, 0.7);
     }
-
     h1 {
         font-size: 36px;
     }
 }
 /* 平板版 */
 @media (min-width: 769px) and (max-width: 1024px){
-    /* .container {
-        width: 90%;
-    
-    } */
-    .forecast-day:not(:last-child){
-        border-right: 1px solid;
-    }
-    .forecast-container {
-        /* display: flex; */
-        gap: 10px; /* 設置容器內部元素的間距 */
-        align-items: center; /* 使元素在垂直方向居中 */
-        background-color: rgba(0, 0, 0, 0.2); /*調整透明度*/
-        border-radius: 10px;
+    #forecastContainer {
         width: 80%;
         height: 270px;
-        margin: 0 auto;
-
     }
     .forecast-day span{
         font-size: 15px;
     }
+    .line{
+        height: 90%;
+        border-right: 1px solid rgba(255, 255, 255, 0.7);
+    }
     
-
     h1 {
         font-size: 30px;
     }
@@ -342,54 +298,43 @@ h1 {
 
 /* 手機版 */
 @media (max-width: 768px) {
-    .container {  
-        width: 100%;
-        height: 100%;    
-    } 
+    .container{
+        height: 100%;
+    }
     .searchcontainer{
         margin-top: 10px;  
     }
    
-    .forecast-container {
-        display: flex;
-        flex-direction: column; /* 讓 .forecast-day 垂直排列 */
-        gap: 10px; /* 設置容器內部元素的間距 */
-        align-items: center; /* 使元素在垂直方向居中 */
-        background-color: rgba(0, 0, 0, 0.2); /*調整透明度*/
-        border-radius: 10px;
+    #forecastContainer {
         width: 80%;
-        margin: 0 auto;
+        flex-direction: column; /* 讓 .forecast-day 垂直排列 */
+        
     }
     .forecast-day {
-        /* display: flex; 需要確保容器本身是 flex 容器 */
         width: 70%; /* 適配手機版寬度 */
         height: 50px;
         align-items: center; /* 元素居中顯示 */
         flex-direction: row; /* 水平排列 */
-        /* background-color: lightblue; */
-        border-bottom: 1px solid;
-        /* flex-wrap: nowrap; */
     }
     .forecast-day h3{
         display: inline;
-        /* background-color: aqua; */
         width: 40px;
     }
     .forecast-day img {
         width: 35px;
         height: 35px;
-        /* background-color: aqua; */
         
     }
     .forecast-day p{
         display: none;
-        /* background-color: aqua; */
     }
     .forecast-day span{
         font-size: 18px;
-        /* background-color: aqua; */
     }
-    
+    .line {
+        width: 70%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+    }
     #tempMax{
         font-weight:bold;
     }
@@ -397,3 +342,5 @@ h1 {
         font-size: 30px;
     }
 }
+
+
