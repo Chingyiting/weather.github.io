@@ -13,7 +13,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #ffffff;
+    background-image: url(img/sky.jpg);
     background-size: cover; /* 讓背景圖片覆蓋容器 */
     background-position: center; /* 背景圖片居中 */
     margin: 0;
@@ -52,14 +52,23 @@ body.blurred::before {
     align-items: center; /* 垂直置中 */
     flex-direction: column; /* 讓內容垂直排列 */
 }
+
+.combineSearch{
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+    margin: 50px;
+    width: 50%;
+}
 .searchcontainer{
     display: flex;
     align-items: center;
     gap: 10px;
-    /* margin-top: 10px; */
+   
 }
 h1 {
-    color: #000000;
+    color: #ffffff;
+    text-shadow: 1px 1px 3px black;
     margin-bottom: 15px;
 }
 
@@ -77,10 +86,29 @@ h1 {
    
 }
 
+.cityName{
+    font-size: 40px;
+    color: white;
+    font-weight:bold;
+    display: flex;
+    justify-content: center;
+}
+.todaysDate{
+    display: flex;
+    color: white;
+    justify-content: center;
+}
+.cityDate{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    width: 50%;
+}
 #searchBtn {
     padding: 6px 10px;
     background-image: url(img/search.png);
-    /* background-color:black; */
+    background-color: transparent;
     background-size: cover; /* 讓背景圖片覆蓋容器 */
     background-position: center; /* 背景圖片居中 */
     height: 20px;
@@ -90,9 +118,6 @@ h1 {
     cursor: pointer;
 }
 
-#searchBtn:hover {
-    background-color: #000000d6;
-}
 
 /* 載入動畫樣式 */
 #loading {
@@ -125,20 +150,21 @@ h1 {
 }
 
 .temperature {
-    font-size: 50px; /* 調整字體大小 */
+    font-size: 70px;
     font-weight: bold;
     color: white;
     line-height:1; 
     margin: 0;
     
 }
-.weather-icon{
-    margin: 5px;
-}
+/* .forecast-day img{
+    margin: 2px;
+} */
 
 .max_min_temp,.condition {
-    font-size: 15px; /* 調整字體大小 */
+    font-size: 18px; /* 調整字體大小 */
     color: white;
+    margin-bottom: 0px;
 }
 
 
@@ -150,12 +176,15 @@ h1 {
     justify-content: center;
     margin-top: 20px; /* 調整此值來增加與上方容器的距離 */
     background-color: rgba(0, 0, 0, 0.2); /*調整透明度*/
-    opacity: 0;
+    /* opacity: 0; */
     animation: fadeIn 1s ease-out forwards; /* 為整個容器加上淡入動畫 */
     animation-delay: 0.5s; /* 預設延遲0.5秒 */
     margin: 0 auto;
 }
-
+.forcastContainer1 {
+    display: flex;
+    justify-content: flex-start;
+}
 /* 為每個預報的容器加上淡入動畫 */
 .forecast-day {
     padding: 30px;
@@ -165,41 +194,19 @@ h1 {
     transition: background-color 0.3s ease;
     width: 120px;
     height: 200px;
-    opacity: 0; /* 初始狀態為透明 */
-    animation: fadeIn 1s ease-out forwards; /* 淡入效果 */
+    
+    animation: fadeIn 1s ease-out forwards;
     position: relative; /* 使 ::before 偽元素能夠定位 */
 }
 
-/* 定義淡入動畫 */
-@keyframes fadeIn {
+  @keyframes fadeIn {
     0% {
-        opacity: 0; /* 開始時完全透明 */
+      opacity: 0;
     }
     100% {
-        opacity: 1; /* 結束時完全顯示 */
+      opacity: 1;
     }
-}
-
-/* 每個 `.forecast-day` 的淡入延遲時間，這樣它們會依次淡入 */
-.forecast-day:nth-child(1) {
-    animation-delay: 0.2s;
-}
-
-.forecast-day:nth-child(2) {
-    animation-delay: 0.4s;
-}
-
-.forecast-day:nth-child(3) {
-    animation-delay: 0.6s;
-}
-
-.forecast-day:nth-child(4) {
-    animation-delay: 0.8s;
-}
-
-.forecast-day:nth-child(5) {
-    animation-delay: 1s;
-}
+  }
 
 
 
@@ -212,54 +219,29 @@ h1 {
     margin: 0; /* 去掉星期字的外邊距 */
     font-size: 18px; /* 設定字體大小 */
     line-height: 2.5; /* 設定行高為1，使文字間距更緊湊 */
-    padding: 2px 0; /* 調整內邊距，將文字稍微向上移動 */
+    font-size: 23px;
+    height: 45px;
 }
 .forecast-day p{
     font-size: 15px;
+    margin-top: 5px;
 }
 
 
-.today {
+.weatherInfo {
     display: none;  /* 預設隱藏 */
-    /* background-color: #f0f8ff; */
     background-size: cover;
     background-position: center;
-    padding: 20px;
-    border-radius: 10px;
-    font-size: 18px;
     text-align: center;
     color: white; /* 適當顏色使文字在背景上更清晰 */
-    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
     transition: background-color 0.3s ease; /* 加入過渡動畫 */
-    width: 70%;
-    height: 30%;
-    margin-top: 10px; /* 調整此值來增加與上方容器的距離 */
-    margin: 0 auto;  /* 水平置中 */
-    position: relative; /* 使 ::before 偽元素能夠定位 */
-}
-
-.today:hover {
-    transform: scale(1.1); /* 放大 1.1 倍 */
-    transition: transform 0.3s ease, background-color 0.3s ease; /* 設置平滑過渡 */
-}
-/* 添加遮罩效果 */
-.today::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-     /*background-color: rgba(0, 0, 0, 0.3); 調整透明度 */
-    border-radius: 10px; /* 與 .today 相同的圓角 */
-    z-index: 1;
+    width: 50%;
 }
 
 .weather-icon {
     width: 50px;
     height: 50px;
     vertical-align: middle; /* 調整圖示與文字的對齊方式 */
-    margin-right: 5px; /* 圖示和文字之間的間距 */
     display: inline-block; /* 保持圖示與文字在同一行 */
 }
 
@@ -267,21 +249,21 @@ h1 {
 @media (min-width: 1025px) {
     #forecastContainer {
         width: 70%;
-        height: 270px;
+        height: 230px;
     }
     .line{
         height: 90%;
         border-right: 1px solid rgba(255, 255, 255, 0.7);
     }
     h1 {
-        font-size: 36px;
+        font-size: 55px;
     }
 }
 /* 平板版 */
 @media (min-width: 769px) and (max-width: 1024px){
     #forecastContainer {
-        width: 80%;
-        height: 270px;
+        width: 90%;
+        height: 230px;
     }
     .forecast-day span{
         font-size: 15px;
@@ -292,7 +274,7 @@ h1 {
     }
     
     h1 {
-        font-size: 30px;
+        font-size: 50px;
     }
 }
 
@@ -304,26 +286,44 @@ h1 {
     .searchcontainer{
         margin-top: 10px;  
     }
-   
+    .cityName{
+        font-size: 30px;
+    }
+    .cityDate{
+        width: 100%;
+    }
+    .combineSearch{
+        flex-direction: column;
+        gap: 20px;
+    }
+    .weatherInfo{
+        width: 100%;
+    }
+    .max_min_temp{
+        font-size: 15px;
+    }
     #forecastContainer {
         width: 80%;
-        flex-direction: column; /* 讓 .forecast-day 垂直排列 */
+        flex-direction: column; 
         
     }
     .forecast-day {
-        width: 70%; /* 適配手機版寬度 */
+        width: 70%; 
         height: 50px;
-        align-items: center; /* 元素居中顯示 */
-        flex-direction: row; /* 水平排列 */
+        align-items: center; 
+        flex-direction: row; 
+        padding: 20px;
     }
     .forecast-day h3{
         display: inline;
-        width: 40px;
+        /* width: 40px; */
+        margin: 10px;
+        align-items: center;
     }
     .forecast-day img {
         width: 35px;
         height: 35px;
-        
+        margin-bottom: 4px;
     }
     .forecast-day p{
         display: none;
@@ -339,7 +339,7 @@ h1 {
         font-weight:bold;
     }
     h1 {
-        font-size: 30px;
+        font-size: 37px;
     }
 }
 

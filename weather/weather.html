@@ -11,26 +11,22 @@
     <div class="container">
         <div class="searchitem" >
             <h1 id="searchTitle">Weather Search</h1>
-            <!-- <h1 id="name">${name}</h1> -->
             <div class="searchcontainer" >
                 <input type="text" id="cityInput" placeholder="City name" />
                 <button id="searchBtn"></button>
             </div>
+            <div id="loading"></div>
         </div>
-        <div id="loading"></div>
-        <div class="today"></div>
-        <!-- <div id="currentWeather"></div> -->
-         
+        <div class="combineSearch">
+            <div class="cityDate">
+                <div class ="cityName"></div>
+                <div class = "todaysDate"></div>
+            </div>
+            <div class="weatherInfo"></div>
+        </div>
+
         <div id="forecastContainer">
-            <!-- <div class="forecast-day" id="day1"></div>
-            <div class="line"></div>
-            <div class="forecast-day" id="day2"></div>
-            <div class="line"></div>
-            <div class="forecast-day" id="day3"></div>
-            <div class="line"></div>
-            <div class="forecast-day" id="day4"></div>
-            <div class="line"></div>
-            <div class="forecast-day" id="day5"></div> -->
+            <!-- 這邊會被js填滿 -->
         </div>
         <!-- <div class="forecast"></div> -->
     </div>

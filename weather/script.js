@@ -3,13 +3,14 @@ const apiKey = '904a626f251b65d24e653d163eb782e7';
 // 元素選擇
 const cityInput = document.getElementById('cityInput');
 const searchBtn = document.getElementById('searchBtn');
-const currentWeatherDiv = document.getElementsByClassName('today')[0];
+const currentWeatherDiv = document.getElementsByClassName('weatherInfo')[0];
 const forecastDiv = document.getElementById('forecastContainer');
 const forecastDay = document.getElementsByClassName('forecast-day')[0];
 const loadingDiv = document.getElementById('loading');
 const searchTitle = document.getElementById('searchTitle');
 const lineDiv = document.getElementsByClassName('line')[0];
-
+const cityTitle = document.getElementsByClassName('cityName')[0];
+const todaysdateDiv = document.getElementsByClassName('todaysDate')[0];
 // 搜尋函數
 let search = () => {
     let city = cityInput.value.trim(); // 取得並去除前後空白的城市名稱
@@ -20,12 +21,15 @@ let search = () => {
         getWeather(city);
         getForecast(city);
         // 將標題更新為使用者輸入的城市名稱
-        searchTitle.textContent = city;
-        searchTitle.style.color = 'white'
+        // searchTitle.textContent = city;
+        // searchTitle.style.color = 'white'
+        searchTitle.style.display = "none";
+        cityTitle.textContent = city;
          // 顯示 forecast-container
         forecastDiv.style.display = 'flex'; // 顯示並設定為 Flex 排版
+        forecastDiv.style.justifyContent = 'flex-start';
         //lineDiv.style.display = 'block';
-        forecastDay.style.display = 'block';
+        
     } else {
         alert('Please enter a city name');
     }
@@ -73,21 +77,21 @@ async function getWeather(city) {
 
 // 顯示當前天氣
 function displayCurrentWeather(data) {
-    const { name, main, weather } = data;
+    const { main, weather } = data;
     const temp = Math.round(main.temp);        // 四捨五入
     const tempMax = Math.round(main.temp_max); // 四捨五入
     const tempMin = Math.round(main.temp_min); // 四捨五入
-    const icon = weather[0].icon;              // 獲取圖示代碼
-    const iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`; // 圖示 URL
+    // const icon = weather[0].icon;              // 獲取圖示代碼
+    //const iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`; // 圖示 URL
     
     const currentDate = new Date();
-    const day = currentDate.toLocaleDateString('en-US', { weekday: 'long' }); // 星期
+    //const day = currentDate.toLocaleDateString('en-US', { weekday: 'long' }); // 星期
     const month = currentDate.toLocaleDateString('en-US', { month: 'long' }); // 月份
     const date = currentDate.getDate(); // 日期
     const year = currentDate.getFullYear(); // 年份
 
     const formattedDate = `${month} ${date}, ${year}`; // 格式化日期
-
+    todaysdateDiv.textContent = formattedDate; //顯示當天天氣
 
     // 根據天氣描述獲取背景圖片
     const description = weather[0].description;
@@ -102,13 +106,14 @@ function displayCurrentWeather(data) {
 
     // 設置內容
     currentWeatherDiv.innerHTML = `
-        <p>${formattedDate}</p>
-        <p class="temperature">${temp} °</p>
+        <p class="temperature">${temp}°c</p>
+        <p class="max_min_temp">H: ${tempMax}° L: ${tempMin}°</p>
         <p class="condition">${description}</p>
-        <p class="max_min_temp">H: ${tempMax} ° L: ${tempMin} °</p>
+        
     `;
      // 顯示 .today 容器
-     currentWeatherDiv.style.display = 'block';
+    currentWeatherDiv.style.display = 'block';
+    
 }
 
 // 獲取五天天氣預報
@@ -124,7 +129,7 @@ async function getForecast(city) {
             forecastDiv.innerHTML = `<p>無法獲取預報資料</p>`;
         }
     } catch (error) {
-        forecastDiv.innerHTML = `<p>無法獲取預報資料</p>`;
+        forecastDiv.innerHTML = `<p>無法獲取預報資料${error}</p>`;
     }
     hideLoading();
 }
@@ -137,16 +142,14 @@ function displayForecast(data) {
     forecastDiv.innerHTML = ''; // 清空之前的內容
     const forecastList = data.list.filter((_, index) => index % 8 === 0); // 每隔 8 個時段（24 小時）獲取一次預測
     let lineCount = 0; // 用來計算已插入的 lineDiv 次數
-    forecastList.forEach((item) => {
-        
 
+    forecastList.forEach((item, i) => {
         const dateObj = new Date(item.dt * 1000);
     
         const weekday = dateObj.toLocaleDateString('en-US', { weekday: 'short' });
         const day = dateObj.toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
         
         const date = `${weekday} ${day}`; // 將星期放在日期前面
-
 
         const tempMax = Math.round(item.main.temp_max); // 四捨五入最高溫
         const tempMin = Math.round(item.main.temp_min); // 四捨五入最低溫
@@ -158,32 +161,31 @@ function displayForecast(data) {
         // 創建 forecastDay 元素
         const forecastDay = document.createElement('div');
         forecastDay.classList.add('forecast-day');
-        
-
-
 
         // 添加內容到 forecastDay
         forecastDay.innerHTML = `
             <h3>${weekday}</h3>
             <img src="${iconUrl}" alt="${description}" class="weather-icon">
             <p>${description}</p>
-            <span id=tempMax> ${tempMax} °</span> / 
-            <span id=tempMin> ${tempMin} °</span>
-            
+            <span id="tempMax"> ${tempMax}°</span> / 
+            <span id="tempMin"> ${tempMin}°</span>
         `;
 
-        forecastDiv.appendChild(forecastDay);
+        setTimeout(() => {
+            forecastDay.style.display = 'block'; // 顯示 forecastDay
+            forecastDiv.appendChild(forecastDay);
+        
+            // 只在前四次插入 lineDiv
+            if (lineCount < 4) {
+                const lineDiv = document.createElement('div');
+                lineDiv.classList.add('line');
+                forecastDiv.appendChild(lineDiv);
+                lineCount++; // 增加計數器
+            }
 
-        // 只在前四次插入 lineDiv
-        if (lineCount < 4) {
-            const lineDiv = document.createElement('div');
-            lineDiv.classList.add('line');
-            forecastDiv.appendChild(lineDiv);
-            lineCount++; // 增加計數器
-        }
 
-        forecastDay.style.display = 'block'; // 顯示 forecastDay
-
+        }, 100*(i+1));
+   
     });
     
 }
