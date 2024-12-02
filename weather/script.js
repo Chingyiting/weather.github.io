@@ -26,7 +26,7 @@ let search = () => {
 
         // show forecastContainer
         forecastDiv.style.display = "flex";
-        forecastDiv.style.justifyContent = "flex-start";
+        forecastDiv.style.justifyContent = "space-around";
     } else {
         alert("Please enter a city name");
     }
