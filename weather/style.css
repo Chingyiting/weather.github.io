@@ -292,9 +292,9 @@ h1 {
 
 /* Mobile version */
 @media (max-width: 768px) {
-    /* .container{
-        height: 100vh;
-    } */
+    .container{
+        height: 100%
+    }
     .searchContainer{
         margin-top: 10px;  
     }

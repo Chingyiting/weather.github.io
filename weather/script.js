@@ -160,7 +160,7 @@ function displayForecast(data) {
         `;
 
         setTimeout(() => {
-            forecastDay.style.display = 'block'; 
+            forecastDay.style.display = 'block';
             forecastDiv.appendChild(forecastDay);
 
             // Insert lineDiv only the first four times
@@ -168,7 +168,7 @@ function displayForecast(data) {
                 const lineDiv = document.createElement("div");
                 lineDiv.classList.add("line");
                 forecastDiv.appendChild(lineDiv);
-                lineCount++; 
+                lineCount++;
             }
 
 
@@ -207,8 +207,7 @@ function getWeatherBackground(description) {
         case 'mist':
             return 'url("img/mist.jpg")';
         default:
-            return 'url("sky.jpg")'; 
+            return 'url("sky.jpg")';
     }
 }
-
 
