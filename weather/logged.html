@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="firebase.js" defer type="module"></script>
+    <script src="update.js" defer type="module"></script>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id"
+        content="658160878418-2gejv82qb03pe136jj37kqpp5o05vpn2.apps.googleusercontent.com.apps.googleusercontent.com"> -->
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="userProfile">
+            <img id="userProfilePicture">
+        </div>
+        <div class="searchItem">
+            <h1 id="searchTitle">Weather Forecast</h1>
+            <div class="searchContainer">
+                <input type="text" id="cityInput" placeholder="City name" />
+                <button id="searchBtn"></button>
+            </div>
+            <div class="input">
+                <button id="google-login-btn" class="google-button"></button>
+            </div>
+            <div id="loading"></div>
+        </div>
+        <div class="combineSearch">
+            <div class="cityDate">
+                <div class="cityName"></div>
+                <div class="todaysDate"></div>
+            </div>
+            <div class="weatherInfo"></div>
+        </div>
+        <div id="forecastContainer">
+            <!-- 這邊會被js填滿 -->
+        </div>
+
+        </script>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

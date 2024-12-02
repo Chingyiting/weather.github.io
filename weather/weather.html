@@ -1,42 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>天氣查詢</title>
+    <script src="firebase.js" defer type="module"></script>
+    <title>Weather Forecast</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    
+
     <div class="container">
-        <div class="searchitem" >
-            <h1 id="searchTitle">Weather Search</h1>
-            <div class="searchcontainer" >
-                <input type="text" id="cityInput" placeholder="City name" />
-                <button id="searchBtn"></button>
+        <div class="searchitem">
+            <h1 id="searchTitle">Weather Forecast</h1>
+            <div class="input">
+                <button id="google-login-btn" class="googleBtn"></button>
             </div>
             <div id="loading"></div>
         </div>
-        <div class="combineSearch">
-            <div class="cityDate">
-                <div class ="cityName"></div>
-                <div class = "todaysDate"></div>
-            </div>
-            <div class="weatherInfo"></div>
-        </div>
-
-        <div id="forecastContainer">
-            <!-- 這邊會被js填滿 -->
-        </div>
-        <!-- <div class="forecast"></div> -->
     </div>
-    <script src="script.js"></script>
-
-    <!-- <div class="today"></div> -->
-
+    </div>
 </body>
+
 </html>
-
-
-
-
