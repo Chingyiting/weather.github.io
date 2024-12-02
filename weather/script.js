@@ -64,10 +64,10 @@ async function getWeather(city) {
         if (data.cod === 200) {
             displayCurrentWeather(data);
         } else {
-            currentWeatherDiv.innerHTML = `<p>找不到該城市</p>`;
+            currentWeatherDiv.innerHTML = `<p>The city cannot be found</p>`;
         }
     } catch (error) {
-        currentWeatherDiv.innerHTML = `<p>無法獲取天氣資料</p>`;
+        currentWeatherDiv.innerHTML = `<p>Unable to obtain weather data</p>`;
     }
     hideLoading();
 }
@@ -120,10 +120,10 @@ async function getForecast(city) {
         if (data.cod === "200") {
             displayForecast(data);
         } else {
-            forecastDiv.innerHTML = `<p>無法獲取預報資料</p>`;
+            forecastDiv.innerHTML = `<p>Unable to obtain forecast data</p>`;
         }
     } catch (error) {
-        forecastDiv.innerHTML = `<p>無法獲取預報資料${error}</p>`;
+        forecastDiv.innerHTML = `<p>Unable to obtain forecast data${error}</p>`;
     }
     hideLoading();
 }

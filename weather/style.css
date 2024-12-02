@@ -57,12 +57,21 @@ body.blurred::before {
 }
 #searchBtn {
     padding: 6px 10px;
-    background-image: url(img/search.png);
+    background-image: url(img/search2.png);
     background-color: transparent;
     background-size: cover; 
     height: 20px;
     border: none;
 }
+#searchBtn:hover{
+    padding: 6px 10px;
+    background-image: url(img/search1.png);
+    background-color: transparent;
+    background-size: cover; 
+    height: 20px;
+    border: none;
+}
+
 
 h1 {
     color: #565656;
@@ -219,21 +228,38 @@ h1 {
 .googleBtn{
     margin-top: 15px;
     border-radius: 100px;
-    height: 33px;
-    width: 33px;
-    background-image: url(img/google.jpg);
+    height: 30px;
+    width: 150px;
+    background-image: url(img/google.png);
     background-color: transparent;
     background-size: cover; 
     background-position: center;
-    border: #ffffff;
-
 }
 #userProfilePicture{
     width: 50px;
     height: 50px;
     border-radius: 100px;
 }
-
+#signOutBtn{
+    margin-top: 15px;
+    height: 26px;
+    width: 26px;
+    background-image: url(img/signout.png);
+    background-color: transparent;
+    background-size: cover; 
+    background-position: center;
+    border: none;
+}
+#signOutBtn:hover{
+    margin-top: 15px;
+    height: 26px;
+    width: 26px;
+    background-image: url(img/signout-sketch.png);
+    background-color: transparent;
+    background-size: cover; 
+    background-position: center;
+    border: none;
+}
 
 /* Desktop version */
 @media (min-width: 1025px) {

@@ -29,6 +29,9 @@ onAuthStateChanged(auth, (user) =>{
         return uid;
 
     } else {
-        alert("create Account & login");
+        // when the user is not logged in and is not logged out, a prompt is displayed
+        if (!isLoggingOut) {
+            alert("Create Account & Login");
+        }
     }
 });

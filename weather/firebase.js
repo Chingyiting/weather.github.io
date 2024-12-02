@@ -17,17 +17,28 @@ const auth = getAuth(app);
 auth.languageCode = 'en';
 const provider = new GoogleAuthProvider();
 
-const googleLogin = document.getElementById("google-login-btn");
-googleLogin.addEventListener("click", function () {
+const googleSignin = document.getElementById("googleSignInBtn");
+googleSignin.addEventListener("click", function () {
     signInWithPopup(auth, provider)
-    .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const user = result.user;
-        console.log(user);
-        window.location.href = "./logged.html";
-    }).catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-    
-    });           
+        .then((result) => {
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const user = result.user;
+            console.log(user);
+            window.location.href = "./logged.html";
+        }).catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+        });
 })
+
+// signOut 
+const signOutBtn = document.getElementById("signOutBtn");
+signOutBtn.addEventListener("click", function () {
+    auth.signOut().then(() => {
+        // 登出成功後跳轉到其他頁面
+        alert("登出成功!!");
+        window.location.href = "./weather.html";
+    }).catch((error) => {
+        console.error("登出失敗: ", error);
+    });
+});
