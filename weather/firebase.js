@@ -35,10 +35,10 @@ googleSignin.addEventListener("click", function () {
 const signOutBtn = document.getElementById("signOutBtn");
 signOutBtn.addEventListener("click", function () {
     auth.signOut().then(() => {
-        // 登出成功後跳轉到其他頁面
-        alert("登出成功!!");
+        // Jump to other pages after sign out successfully
+        alert("SIGN OUT SUCCESSFUL !!");
         window.location.href = "./weather.html";
     }).catch((error) => {
-        console.error("登出失敗: ", error);
+        console.error("SIGN OUT ERROR: ", error);
     });
 });
